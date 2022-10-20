@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "label": "npm: build - app",
+      "detail": "NODE_ENV=development tsc -p ."
+    },
+    {
+      "label": "debug:typescript:start",
+      "type": "shell",
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "command": "npm run tsc -- -p ./samples/tsconfig.prod.json"
+    },
+    {
+      "label": "debug:typescript:end",
+      "type": "shell",
+      "command": "npm run rimraf .demo"
+    }
+  ]
+}

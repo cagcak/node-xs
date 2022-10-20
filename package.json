@@ -2,9 +2,16 @@
   "name": "node-xs",
   "version": "0.0.1",
   "description": "Decorated state machine for Nodejs projects",
-  "main": "./lib/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./dist/lib-esm/index.js",
+  "module": "./dist/lib-esm/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "typesVersions": {
+    ">=3.1": {
+      "*": [
+        "ts4.0/*"
+      ]
+    }
+  },
   "libraryTarget": "commonjs",
   "author": "",
   "license": "ISC",
@@ -12,20 +19,24 @@
     "url": "https://github.com/cagcak/node-xs.git"
   },
   "files": [
-    "./lib"
+    "./dist/lib",
+    "./dist/lib-esm"
   ],
   "scripts": {
     "tsc": "node ./node_modules/typescript/bin/tsc",
     "mocha": "node ./node_modules/mocha/bin/mocha.js",
     "rimraf": "node ./node_modules/rimraf/bin.js",
     "webpack": "node ./node_modules/webpack/bin/webpack.js",
-    "clean": "npm run rimraf lib lib-esm _bundles",
+    "clean": "npm run rimraf dist",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register --require mocha-suppress-logs 'tests/**/*.spec.ts'",
     "prebuild": "npm test && npm run clean",
     "build": "npm run tsc -- -p ./tsconfig.json",
+    "build:dev": "export NODE_ENV='development' || set NODE_ENV='development' && npm run build",
+    "build:prod": "export NODE_ENV='production' || set NODE_ENV='production' && npm run build",
     "postbuild": "npm run webpack",
-    "prepublish": "npm run build",
-    "bundle": "npm run build -- -m es6 --outDir lib-esm"
+    "prepublish": "npm run build:prod",
+    "bundle:dev": "npm run build:dev -- -m es2015 --outDir ./dist/lib-esm",
+    "bundle:prod": "npm run build:prod -- -m es2015 --outDir ./dist/lib-esm"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
@@ -36,7 +47,6 @@
     "chai": "^4.3.6",
     "mocha": "^10.1.0",
     "mocha-suppress-logs": "^0.3.1",
-    "rewire": "^6.0.0",
     "rimraf": "^3.0.2",
     "terser-webpack-plugin": "^5.3.6",
     "ts-node": "^10.9.1",

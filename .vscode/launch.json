@@ -12,8 +12,20 @@
       "program": "${workspaceFolder}/lib/index.js"
     },
     {
-      "name": "Test Bundle Program",
-      "program": "${workspaceFolder}/test.js",
+      "name": "Test Javascript Program",
+      "program": "${workspaceFolder}/samples/demo.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "Test Typescript Program",
+      "program": "${workspaceFolder}/samples/demo.ts",
+      "outFiles": ["${workspaceFolder}/.demo/**/*.js"],
+      "preLaunchTask": "debug:typescript:start",
+      "postDebugTask": "debug:typescript:end",
+      "trace": true,
+      "sourceMaps": true,
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"

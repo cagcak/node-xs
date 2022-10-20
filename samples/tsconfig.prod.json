@@ -6,28 +6,24 @@
     "lib": ["ES2015"],
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist/lib",
-    "rootDir": "./src",
+    "outDir": "../.demo",
+    "rootDir": "./",
     "baseUrl": "./",
     "composite": true,
     "removeComments": true,
     "isolatedModules": false,
     "strict": true,
-    "paths": {
-      "@node-xs/modules": ["./src/modules/index.ts"],
-      "@node-xs/decorators": ["./src/decorators/index.ts"],
-      "@node-xs/models": ["./src/models/index.ts"]
-    },
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": [".../node_modules/@types", ".../types"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
     "noEmitOnError": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["./src"],
-  "exclude": ["./tests", "./node_modules", "./dist", "./.demo"]
+  "include": ["./"],
+  "exclude": ["../tests", "../node_modules", "../dist", "../.demo"]
 }

@@ -4,12 +4,19 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, "src/index.ts"),
-  bundles: path.resolve(__dirname, "_bundles"),
+  bundles: path.resolve(__dirname, "dist"),
 };
+
+if (!process.env.NODE_ENV) {
+  console.warn("Environment mode is not set! Using default: development");
+  process.env.NODE_ENV = "development";
+}
+
+const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   target: "node",
-  mode: "production",
+  mode: process.env.NODE_ENV,
   externals: [nodeExternals()], // removes node_modules from your final bundle
   entry: {
     "node-xs": [PATHS.entryPoint],
@@ -36,7 +43,7 @@ module.exports = {
     ],
   },
   optimization: {
-    minimize: true,
+    minimize: isProd,
     minimizer: [new TerserPlugin()],
   },
 };

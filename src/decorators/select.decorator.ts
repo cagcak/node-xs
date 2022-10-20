@@ -1,9 +1,10 @@
 import { DefaultState, Options } from "../models";
 
-export const select = <T = DefaultState>(
+export function Select<T = DefaultState>(
+  state?: T,
   options?: Options
-): PropertyDecorator => {
-  return (target: any, propertyKey: string | symbol) => {
+): PropertyDecorator {
+  return function (target: any, propertyKey: string | symbol) {
     let value: T = target[propertyKey];
 
     return Object.defineProperty(target, propertyKey, {
@@ -13,4 +14,4 @@ export const select = <T = DefaultState>(
       get: (): T => value,
     });
   };
-};
+}
